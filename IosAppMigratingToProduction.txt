@@ -1,0 +1,7 @@
+1 . If The App is using Native push notifications (APNS),  Go to Certificates Identifiers And Profiles -> select Identifier -> select the bundle identifier of the app 
+	-> Edit ->in Production SSL Certificate select Create Certificate -> Download -> double-click on it so that it will appear in keychain access. By using this u 	can create .p12 and from p12ceritificate we can generate .pem certificate
+2 . Now go to Certificates -> provisioning profile -> Distribution -> select the bundle id you registered now and select all devices and generate                                               	mobile_provisioning_profile and double click on it.
+
+3 . Now go to Xcode -> preferences -> select the certificate used for the app and click on View details,it will show all provisioning profiles, click on download all.
+
+4 . In Xcode click on project name -> targets -> Build settings (select all and combined buttons) -> scroll down to code Signing section -> select code signing 	identity and expand to see debug section and release section. -> For debug section select on iOS developer and for release select iOS distribution and 		provisioning profile select automatic.

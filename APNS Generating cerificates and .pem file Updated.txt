@@ -1,0 +1,47 @@
+1.) 	Key chain Access(don’t select any certificate) -> Certificate Assistant -> request certificate from certificate signing authority -> your email Id And Some common Name Specific to the App -> save to Desktop.
+2.)	Apple developer Account -> certificates -> identifiers -> AppIDs  -> 
+     a) if your bundle identifier is not there in the appiIDs You can create one new App name and select push notification service
+ 	and create development SSL certificate (or Production )CREATE CERTIFICATE -> It will ask for CSR(certificate signing request) which we created in the first step. Select the CSR create SSL certificate 		and download aps_development certificate and double-click on it so that it will appear in the keychain access.
+     b) if you have already used the bundle identifier 
+		(i)If you have the production or development certificate in keychain access as shown below with the specified bundle id and it is not yet expired you can directly goto step 4 to create p12 				certificate.
+			(e.g. for development : Apple Development IOS Push Services : com.nutsoversalads.ios )
+			(e.g. for production  : Apple Production IOS Push Services : com.nutsoversalads.ios )
+		(ii) if you don’t have production or development certificates with the specified bundle identifier the goto developer account ->  member centre —> certificates, identifiers, profiles section> 			identifiers -> appIDs ->  select the bundelidentifier required ->  edit -> development SSL Certificate ( or production SSL Certificate) revoke and click on CREATE CERTIFICATE -> It will ask for 			CSR(certificate signing request) which we created in the first step. Select the CSR create SSL certificate and download aps_development certificate and double-click on it so that it will appear in 		the keychain access.
+3)	Certificates -> provisioning profile -> development -> select the bundle id you registered now and select all devices and generate mobile_provisioning_profile and double click on it.
+4)	Once you have the certificate from Apple for your application in Key chain access, export your key and the apple certificate as p12 files. Here is a quick walkthrough on how to do this:
+ 
+	Click the disclosure arrow next to your certificate in Keychain Access and select the certificate and the key.
+	Right click and choose Export 2 items…. (and if it asks for password give some password ex: mac05  and we should use the same password in backend so do remember this password)
+	Choose the p12 format from the drop down and name it cert.p12.
+5)	Now convert the p12 file to a pem file:
+	
+	$ openssl pkcs12 -in cert.p12 -out apple_push_notification_production.pem -nodes -clcerts
+	
+
+6)	Upload the .pem ( here apple_push_notification_production.pem )file generated in this step to the back end push notifications section.
+
+
+——————————————— ***********************************        ————————————          *****************************             ——————————————————————          *******************************          ——————————
+
+-> to check whether it is working or not download the Simplepush.php file from here( http://d1xzuxjlafny7l.cloudfront.net/downloads/SimplePush.zip ) and change the following fields 
+
+// Put your device token here (without spaces):
+1) $deviceToken = '0f744707bebcf74f9b7c25d48e3358945f6aa01da5ddb387462c7eaf61bbad78';
+ 
+// Put your private key's passphrase here:
+2) $passphrase = ‘mac05’;
+ 
+// Put your alert message here:
+3)$message = 'My first push notification!';
+
+// ck.Pem file (line number 15)name generated now
+
+4 replace ck.pem with apple_push_notification_development_Lymo.pem
+
+// in command prompt go to your sample.php folder and execute the below command
+
+5 $ php simplepush.php
+
+ Expected output —>   Connected to APNS
+			Message successfully delivered
+ 

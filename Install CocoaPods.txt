@@ -1,0 +1,21 @@
+Installing COCOA Pods
+1) Open terminal 
+2) Type the command 
+	sudo gem install cocoapods 
+	(gem will get installed in Ruby inside System library)
+	{ 
+	if you get error (ERROR: While executing gem ... (Errno::EPERM) Operation not 	permitted - /usr/bin/pod) then instead of 
+	sudo gem install cocoapods 
+	type this command   
+	sudo gem install -n /usr/local/bin cocoapods
+	}
+ 3) Type the command
+	pod setup
+ 4) create a xcode project 
+ 5) cd "path to your project root directory"
+ 6) pod init 
+ 7) open -a Xcode Podfile (podfile will get open in text mode. Initially it will be emppty put  the follwoing line of  code.)
+ 8) pod 'AFNetworking', '0.9.1'  (It’s finally time to add your first dependency using CocoaPods! Copy and paste the following into your pod file, right after target "AFNetworkingProject" do:) Now close pod file and execute below command on terminal
+
+ 9) pod install.
+10) Now close your xcode project and open .xcworkspace xcode project file.

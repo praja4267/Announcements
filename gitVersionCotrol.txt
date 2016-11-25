@@ -1,0 +1,14 @@
+Upload a project to github:
+
+1. cd project location 
+2. git init
+3. git add -A
+4. git commit -m “Initial commit”
+5. goto github.com and login to your account 
+6. click on + button and add new repository.
+7. Give repository name Eg:TestProject
+8.click on create new repository button
+9.copy the lines from push to existing repository 
+ e.g. : git remote add origin https://github.com/praja4267/TestProject.git
+ and run this in terminal.
+10. now in terminal run the command :  git push -u origin master.

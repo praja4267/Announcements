@@ -1,0 +1,49 @@
+01. App Name = Nuts Over Salads
+02. App Version = 1.0
+03. App Build Number = 1.0.1.5
+04. App Bundle Identifier = com.nutsoversalads.ios
+05. Deployment Target OS = 8.0
+06. Devices Supported = iPhone
+07. Device Orientation = Portrait
+08. Programming Language = Swift 2.0
+09. IDE = Xcode 7.1 (7B91b)
+10. Operating System used = OS X El Capitan (Version 10.11)
+11. Crittercism Admin Email = satish@tech-active.com
+12. Crittercism AppID = 560d08e68d4d8c0a00d07bc0
+13. Crittercism SDK Version = 5.4.0
+14. Facebook Developer Email = devilsdrink@hotmail.com
+15. Facebook App Id = 1484670798502663
+16. Facebook Api Version = v2.5
+17. Facebook SDK used = FacebookSDKs-iOS-20150813
+18. Google Developer Email = nutsoversalads@gmail.com
+19. Google Project ID = nuts-over-salads-42dba
+20. Google Project number = 737130715980
+21. Google Signin Client ID = "737130715980-n1c4sdfps1rjcfoh692912fa6nerudsu.apps.googleusercontent.com"
+22. Google API key = AIzaSyAj8rcnqSLBz2gVKjevrjVADsH5Koowi58
+23. Google iOS SDK used = google_signin_sdk_2_4_0
+24. Parse Developer Email = info@nutsoversalads.com
+25. Parse Application ID = oMHmFvg3LU7ROFnA93ERyKDuMoU01cPBo0pllGhQ
+26. Parse Client Key = orGTa80nHlk0GGcoUm7OMmo6BYqfYTEHDhNki6v8
+27. Parse REST API Key = Obsk0nzhfKrxn3Xv0z1u8GK4yOVfoyv31yxO1E30
+28. Parse SDK Version = parse-library-1.9.1
+29. PayU biz Client Email = adityarao@nutsoversalads.com
+30. PayU Merchant ID = 127686
+31. PayU live Key/Alias = WYhYKL
+32. PayU live Salt = T8kZVyAB
+33. PayU SDK Version = iOS SDK v3.1
+34. Mandrill Email = info@nutsoversalads.com
+35. Mandrill API Password = CQr8uFUKtKDKTGbo-7v9_Q
+36. Buzoonga email = info@nutsoversalads.com 
+37. SMS sender = nutsos
+38. Apple ID = nutsoversalads@gmail.com
+39. iTunesConnect = nutsoversalads@gmail.com
+
+Third Party libraries used :
+
+1. Reachability -> To check internet is available or not
+2. TPKeyboardAvoiding -> To dismiss keyboard when clicked outside the textfield
+3. SWRevealViewController -> To get side menu
+4. RgpageViewController -> to display menu with different categories dynamically
+5. Haneke for loading images in background thread fastly
+6. WebViewJavascriptBridge -> used to send request to web in payU
+

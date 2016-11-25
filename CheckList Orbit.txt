@@ -1,0 +1,20 @@
+Orbit, Orbit Taxi, Taxi, Orbit Transtech, Bolton Taxi, United Kingdom Taxi, UK Taxi
+
+-> comment the checkForDummyRequestStatus Function in "LandingPageViewController.m”  and "currentRideViewController.m” and uncommonent the checkForRequestStatus .
+
+-> in constants.h file Use 0 for live.
+
+-> Define Alog as empty To stop printing logs in Appdelegate.h.
+
+->The version Number in AboutUs.m.
+
+->login with google and Facebook 
+
+->Change the latest version number in Orbit ->Target-> General -> Version number and build number.
+
+-> Check For signing identities : Orbit->Target->Build Settings -> code Signing -> 
+Debug -> iOS Developer
+
+Release -> iosDistribution.
+AnyIosSdk-> iosDistribution.
+

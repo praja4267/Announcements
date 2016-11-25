@@ -1,0 +1,837 @@
+1)What are design patterns in iOS .
+2)What is the difference between atomic and nonatomic properties? Which is the default for synthesized properties?
+3)Differentiate ‘app ID’ from ‘bundle ID’. Explain why they are used.
+4)5. Which are the ways of achieving concurrency in iOS?
+/*The three ways to achieve concurrency in iOS are:
+
+Threads
+Dispatch queues
+Operation queues
+*/
+
+5)Explain the different types of iOS Application States.
+6)Which is the framework that is used to construct application’s user interface for iOS?
+7)Which is the application thread from where UIKit classes should be used? 
+8)When would you say that an app is not in a running state?
+9.What is autorealease pool?
+/*Every time -autorelease is sent to an object, it is added to the inner-most autorelease pool. When the pool is drained, it simply sends -release to all the objects in the pool.
+Autorelease pools are a convenience that allows you to defer sending -release until “later”. That “later” can happen in several places, but the most common in Cocoa GUI apps is at the end of the current run loop cycle.
+*/
+
+10. Differentiate between ‘assign’ and ‘retain’ keyword.
+/*Retain -specifies that retain should be invoked on the object upon assignment. It takes ownership of an object.
+Assign – specifies that the setter uses simple assignment. It is used on attribute of scalar type like float,int.
+*/
+11. What are layer objects?
+/*Layer objects are data objects which represent visual content and are used by views to render their content. Custom layer objects can also be added to the interface to implement complex animations and other types of sophisticated visual effects.
+*/
+12. Outline the class hierarchy for a UIButton until NSObject.
+/*
+UIButton inherits from UIControl, UIControl inherits from UIView, UIView inherits from UIResponder, UIResponder inherits from the root class NSObject.
+*/
+13.What JSON framework is supported by iOS (iPhone OS)?
+14.Name the framework that is used to construct application’s user interface for iOS
+15.How can you respond to state transitions on your app?
+16.What are the features added in iOS 9? 
+/*
+• Intelligent Search and Siri- Intelligent Search is an excellent mechanism to learn user habits and act on that information- open apps before we need them, make recommendations on places we might like and guide us through our daily lives to make sure we’re where we need to be at the right time.
+Siri is a personal assistant to the users, able to create contextual reminders and search through photos and videos in new ways. Swiping right from the home screen also brings up a new screen that houses “Siri Suggestions,” putting favorite contacts and apps right on your fingertips, along with nearby restaurant and location information and important news.
+• Deeper search capabilities can show results like sports scores, videos, and content from third-party apps, and you can even do simple conversions and calculations using the search tools on your iPhone or iPad.Performance improvements
+• Many of the built-in apps have been improved.
+✓ Notes includes new checklists and sketching features
+✓ Maps now offers transit directions
+✓ Mail allows for file attachments, and
+✓ New “News” app that learns your interests and delivers relevant content you might like to read.
+✓ Apple Pay is being improved with the addition of store credit cards and loyalty cards
+✓ Leading “Passbook” to be renamed to “Wallet” in iOS 9.
+• San Francisco font, wireless CarPlay support
+• An optional iCloud Drive app, built-in two factor authentication and optional longer passwords for better security.
+*/
+
+17.What are the different ways to specify layout of elements in UIView?
+/*
+Here are a few common ways to specify the layout of elements in UIView:
+• Using InterfaceBuilder, you can add a XIB file to your project, layout elements within it, and then load the XIB in your application code (either automatically, based on naming conventions, or manually). Also, using InterfaceBuilder you can create a storyboard for your application.
+• You can write your own code to use NSLayoutConstraints and have elements in a view arranged by Auto Layout.
+• You can create CGRects describing the exact coordinates for each element and pass them to UIView’s – (id)initWithFrame:(CGRect)frame method.
+*/
+
+18.What is the difference between atomic and non-atomic properties? Which is the default for /synthesized properties? When would you use one over the other?
+/*
+• Properties specified as atomic are guaranteed to always return a fully initialized object. This also happens to be the default state for synthesized properties.
+• While it’s a good practice to specify atomic to remove the potential for confusion, if you leave it off, your properties will still be atomic.
+• This guarantee of atomic properties comes at the cost to performance.
+• However, if you have a property for which you know that retrieving an uninitialized value is not a risk (e.g. if all access to the property is already synchronized via other means), setting it to non-atomic can boost performance.
+*/
+
+19.9.Describe managed object context and is function.
+• A managed object context (represented by an instance of NSManagedObjectContext) is a temporary “scratch pad” in an application for a (presumably) related collection of objects. These objects collectively represent an internally consistent view of one or more persistent stores.
+• A single managed object instance exists in one and only one context, but multiple copies of an object can exist in different contexts.
+The key functions of managed object context include
+• Life-cycle management: Here, the context provides validation, inverse relationship handling and undo/redo
+• Notifications refer to context posts notifications at various points that can be optionally monitored elsewhere in your application.
+• Concurrency is when the Core Data uses thread (or serialized queue) confinement to protect managed objects and managed object contexts.
+10.Explain Singleton class.
+Only one instance of that class is created in the application.
+@interface SomeManager : NSObject
+             + (id)singleton;
+ @end
+ @implementation SomeManager
+            + (id)singleton {    
+                                 static id sharedMyManager = nil; 
+                                 @synchronized([MyObject class]){ 
+                                                     if (sharedMyManager == nil) { 
+                                                                         sharedMyManager = [[self alloc] init]; 
+                                                      } 
+                                 }
+                                return sharedMyManager;
+            }
+ @end
+//using block
++ (id) singleton {
+    static SomeManager *sharedMyManager = nil;
+    static dispatch_once_t  onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedMyManager = [[self alloc] init];
+    });
+    return sharedMyManager;
+}
+20.What is unnamed category
+Unnamed Category has fallen out of favor now that @protocol has been extended to support @optional methods.
+A class extension –
+@interface Foo() — is designed to allow you to declare additional private API — SPI or System Programming Interface — that is used to implement the class innards. This typically appears at the top of the .m file. Any methods/properties declared in the class extension must be implemented in the @implementation, just like the methods/properties found in the public @interface.
+Class extensions can also be used to re-declare a publicly readonly @property as readwrite prior to @synthesize’ing the accessors.
+Example:
+Foo.h
+@interface Foo:NSObject
+@property(readonly, copy) NSString *bar;
+-(void) publicSaucing;
+@end
+Foo.m
+@interface Foo()
+@property(readwrite, copy) NSString *bar;
+– (void) superSecretInternalSaucing;
+@end
+@implementation Foo
+@synthesize bar;
+…. must implement the two methods or compiler will warn ….
+@end
+21.Does Objective-C contain private methods?
+NO, there is nothing called a private method in Object-C programming. If a method is defined in .m only then it becomes protected. If in .h,it is public.
+If you really want a private method then you need to add a local category/ unnamed category/ class extension in the class and add the method in the category and define it in the class.m
+22.What is plist?
+Plist refers to Property lists that organize data into named values and lists of values using several object types. These types provide you the means to produce data that is meaningfully structured, transportable, storable, and accessible, but still as efficient as possible. Property lists are frequently used by applications running on both Mac OS X and iOS. The property-list programming interfaces for Cocoa and Core Foundation allow you to convert hierarchically structured combinations of these basic types of objects to and from standard XML. You can save the XML data to disk and later use it to reconstruct the original objects.
+The user defaults system, which you programmatically access through the NSUserDefaults class, uses property lists to store objects representing user preferences. This limitation would seem to exclude many kinds of objects like as NSColor and NSFont objects, from the user default system. But if objects conform to the NSCoding protocol they can be archived to NSData objects, which are property list–compatible objects
+23.What is the purpose of reuseIdentifier? What is the benefit of setting it to a non-nil value?
+• The reuseIdentifier is used to group together similar rows in a UITableView; i.e., rows that differ only in their content, but otherwise have similar layouts.
+• A UITableView will normally allocate just enough UITableViewCell objects to display the content visible in the table.
+• If reuseIdentifier is set to a non-nil value then UITableView will first attempt to reuse an already allocated UITableViewCell with the same reuseIdentifier when the table view is scrolled.
+• If reuseIdentifier has not been set, the UITableView will be forced to allocate new UITableViewCell objects for each new item that scrolls into view, potentially leading to laggy animations.
+24.What is the difference between an “app ID” and a “bundle ID” and what is each used for?
+
+• An App ID is a two-part string to identify one or more apps from a single development team. The string consists of a Team ID and a bundle ID search string, with a period (.) separating the two parts.
+• The Team ID is supplied by Apple and is unique to a specific development team while a bundle ID search string is supplied by the developer to match either the bundle ID of a single app or a set of bundle IDs for a group of apps.
+Since most users consider the App ID as string, they think it is interchangeable with Bundle ID. Once the App ID is created in the Member Center, you can only use the App ID Prefix that matches the Bundle ID of the Application Bundle.
+The bundle ID uniquely defines each App. It is specified in Xcode. A single Xcode project can have multiple targets and therefore, output multiple apps. A common use case for this – An app having both lite/free and pro/full versions or branded multiple ways.
+
+25.What is Abstract class in Cocoa?
+Cocoa doesn’t provide anything called abstract. We can create a class abstract that gets checked only at runtime while it is not checked at compile time.
+@interface AbstractClass : NSObject
+@end
+@implementation AbstractClass
++ (id)alloc{
+    if (self == [AbstractClass class]) {
+        NSLog(@"Abstract Class can’t be used");
+    }
+    return [super alloc];
+@end
+
+
+26.What is NSURLConnection class? Define its types and use case.
+There are two ways of using NSURLConnection class. One is asynchronous and the other is synchronous.
+An asynchronous connection will create a new thread and performs its download process on the new thread. A synchronous connection will block the calling thread while downloading content and doing its communication.
+Many developers think that a synchronous connection blocks the main thread, which is not true. A synchronous connection will always block the thread from which it is fired. If you fire a synchronous connection from the main thread, the main thread will be blocked. But, if you fire a synchronous connection from a thread other than the main thread, it will be like an asynchronous connection and won’t block your main thread.
+In fact, the only difference between a synchronous and an asynchronous connection is that at runtime, a thread will be created for the asynchronous connection while it won’t do the same for a synchronous connection.
+In order to create an asynchronous connection, we need to do the following:
+1. Have our URL in an instance of NSString
+2. Convert our string to an instance of NSURL
+3. Place our URL in a URL Request of type NSURLRequest, or in the case of mutable URLs, in an instance of NSMutableURLRequest.
+4. Create an instance of NSURLConnection and pass the URL request to it.
+
+27).What is the relation between iVar and @property?
+/*iVar is an instance variables. It cannot be accessed unless we create accessors, which are generated by @property. iVar and its counterpart @property can be of different names.
+@interface Box : NSObject{
+    NSString *boxName;
+}
+@property (strong) NSString *boxDescription;//this will become another ivar
+-(void)aMethod;
+@end
+@implementation Box
+@synthesize boxDescription=boxName;//now boxDescription is accessor for name
+-(void)aMethod {
+    NSLog(@"name=%@", boxName);
+     NSLog(@"boxDescription=%@",self.boxDescription);
+    NSLog(@"boxDescription=%@",boxDescription); //throw an error
+}
+@end
+
+*/
+
+28.What is the reuseIdentifier used for?
+
+29. Explain the difference between atomic and nonatomic synthesized properties?
+
+Atomic and non-atomic refers to whether the setters/getters for a property will atomically read and write values to the property. When the atomic keyword is used on a property, any access to it will be “synchronized”. Therefore a call to the getter will be guaranteed to return a valid value, however this does come with a small performance penalty. Hence in some situations nonatomic is used to provide faster access to a property, but there is a chance of a race condition causing the property to be nil under rare circumstances (when a value is being set from another thread and the old value was released from memory but the new value hasn’t yet been fully assigned to the location in memory for the property).
+
+30.Explain the difference between copy and retain?
+
+Retaining an object means the retain count increases by one. This means the instance of the object will be kept in memory until it’s retain count drops to zero. The property will store a reference to this instance and will share the same instance with anyone else who retained it too. Copy means the object will be cloned with duplicate values. It is not shared with any one else.
+
+31.What is method swizzling in Objective C and why would you use it?
+
+Method swizzling allows the implementation of an existing selector to be switched at runtime for a different implementation in a classes dispatch table. Swizzling allows you to write code that can be executed before and/or after the original method. For example perhaps to track the time method execution took, or to insert log statements
+
+#import "UIViewController+Log.h"
+@implementation UIViewController (Log)
+    + (void)load {
+        static dispatch_once_t once_token;
+        dispatch_once(&once_token,  ^{
+            SEL viewWillAppearSelector = @selector(viewDidAppear:);
+            SEL viewWillAppearLoggerSelector = @selector(log_viewDidAppear:);
+            Method originalMethod = class_getInstanceMethod(self, viewWillAppearSelector);
+            Method extendedMethod = class_getInstanceMethod(self, viewWillAppearLoggerSelector);
+            method_exchangeImplementations(originalMethod, extendedMethod);
+        });
+    }
+    - (void) log_viewDidAppear:(BOOL)animated {
+        [self log_viewDidAppear:animated];
+        NSLog(@"viewDidAppear executed for %@", [self class]);
+    }
+@end
+
+*/
+32. What is a category and when is it used?
+/*
+A category is a way of adding additional methods to a class without extending it. It is often used to add a collection of related methods. A common use case is to add additional methods to built in classes in the Cocoa frameworks. For example adding async download methods to the UIImage class.
+*/
+33.What is the difference between viewDidLoad and viewDidAppear? Which should you use to load data from a remote server to display in the view?
+
+34.What considerations do you need when writing a UITableViewController which shows images downloaded from a remote server?
+
+This is a very common task in iOS and a good answer here can cover a whole host of knowledge. The important piece of information in the question is that the images are hosted remotely and they may take time to download, therefore when it asks for “considerations”, you should be talking about:
+
+Only download the image when the cell is scrolled into view, i.e. when cellForRowAtIndexPath is called.
+Downloading the image asynchronously on a background thread so as not to block the UI so the user can keep scrolling.
+When the image has downloaded for a cell we need to check if that cell is still in the view or whether it has been re-used by another piece of data. If it’s been re-used then we should discard the image, otherwise we need to switch back to the main thread to change the image on the cell.
+
+35.What is a protocol, how do you define your own and when is it used?
+
+A protocol is similar to an interface from Java. It defines a list of required and optional methods that a class must/can implement if it adopts the protocol. Any class can implement a protocol and other classes can then send messages to that class based on the protocol methods without it knowing the type of the class.
+
+@protocol MyCustomDataSource
+- (NSUInteger)numberOfRecords;
+- (NSDictionary *)recordAtIndex:(NSUInteger)index;
+@optional
+- (NSString *)titleForRecordAtIndex:(NSUInteger)index;
+@end
+A common use case is providing a DataSource for UITableView or UICollectionView.
+
+36.).What is KVC and KVO? Give an example of using KVC to set a value.
+
+KVC stands for Key-Value Coding. It's a mechanism by which an object's properties can be accessed using string's at runtime rather than having to statically know the property names at development time. KVO stands for Key-Value Observing and allows a controller or class to observe changes to a property value.
+
+Let's say there is a property name on a class:
+
+@property (nonatomic, copy) NSString *name;
+We can access it using KVC:
+
+NSString *n = [object valueForKey:@"name"]
+And we can modify it's value by sending it the message:
+
+[object setValue:@"Mary" forKey:@"name"]
+Question 12
+
+37.What are blocks and how are they used?
+
+Blocks are a way of defining a single task or unit of behavior without having to write an entire Objective-C class. Under the covers Blocks are still Objective C objects. They are a language level feature that allow programming techniques like lambdas and closures to be supported in Objective-C. Creating a block is done using the ^ { } syntax:
+
+ myBlock = ^{
+    NSLog(@"This is a block");
+ }
+It can be invoked like so:
+
+myBlock();
+It is essentially a function pointer which also has a signature that can be used to enforce type safety at compile and runtime. For example you can pass a block with a specific signature to a method like so:
+
+- (void)callMyBlock:(void (^)(void))callbackBlock;
+If you wanted the block to be given some data you can change the signature to include them:
+
+- (void)callMyBlock:(void (^)(double, double))block {
+    ...
+    block(3.0, 2.0);
+}
+Question 13
+
+38.What mechanisms does iOS provide to support multi-threading?
+
+NSThread creates a new low-level thread which can be started by calling the start method.
+NSThread* myThread = [[NSThread alloc] initWithTarget:self
+                                        selector:@selector(myThreadMainMethod:)
+                                        object:nil];
+[myThread start]; 
+NSOperationQueue allows a pool of threads to be created and used to execute NSOperations in parallel. NSOperations can also be run on the main thread by asking NSOperationQueue for the mainQueue.
+NSOperationQueue* myQueue = [[NSOperationQueue alloc] init];
+[myQueue addOperation:anOperation]; 
+[myQueue addOperationWithBlock:^{
+   /* Do something. */
+}];
+GCD or Grand Central Dispatch is a modern feature of Objective-C that provides a rich set of methods and API's to use in order to support common multi-threading tasks. GCD provides a way to queue tasks for dispatch on either the main thread, a concurrent queue (tasks are run in parallel) or a serial queue (tasks are run in FIFO order).
+dispatch_queue_t myQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+dispatch_async(myQueue, ^{
+    printf("Do some work here.\n");
+});
+
+39).What's the difference between using a delegate and notification?
+
+Both are used for sending values and messages to interested parties. A delegate is for one-to-one communication and is a pattern promoted by Apple. In delegation the class raising events will have a property for the delegate and will typically expect it to implement some protocol. The delegating class can then call the delegates protocol methods.
+
+Notification allows a class to broadcast events across the entire application to any interested parties. The broadcasting class doesn't need to know anything about the listeners for this event, therefore notification is very useful in helping to decouple components in an application.
+
+[NSNotificationCenter defaultCenter] 
+        postNotificationName:@"TestNotification" 
+        object:self];
+
+40. What's your preference when writing UI's? Xib files, Storyboards or programmatic UIView?
+
+41.How would you securely store private user data offline on a device? What other security best practices should be taken?
+42.What is MVC? How is it implemented in iOS? What are some pitfalls you've experienced with it? Are there any alternatives to MVC?
+43.A product manager in your company reports that the application is crashing. What do you do?
+
+This is a great question in any programming language and is really designed to see how you problem solve. You're not given much information, but some interviews will slip you more details of the issue as you go along. Start simple:
+
+get the exact steps to reproduce it.
+find out the device, iOS version.
+do they have the latest version?
+get device logs if possible.
+*/
+
+42).What is AutoLayout? What does it mean when a constraint is "broken" by iOS?
+
+43)"Describe an interesting problem and how you solved it."
+
+/**********  —————————*    *************—————    —     —————   **********/
+
+What was the latest version of iOS you worked with? what do you like about it and why?
+Have you worked with Swift? What do you like about it? What you don’t like?
+How memory management is handled on iOS?
+What do you know about singletons? Where would you use one and where you wouldn't?
+Could you explain what is the difference between Delegate and KVO?
+How do you usually persist data on iOS?
+How do you typically do networking?
+How do you serialize data on iOS (JSON from the web or local app data to Core Data and other storages) ? 
+What design patterns do you know and use on iOS?
+What is Autolayout?
+How do you handle async tasks?
+How do you manage dependencies?
+How do you debug and profile things on iOS?
+Do you code review?
+Do you test your code? What do you do to make your code testable?
+Let’s go through each of them individually to get a sense what answers for each tell us about the interviewee.
+
+1. What was the latest version of iOS you worked with? What do you like about it and why?
+The purpose of this question is to inquire if the interviewee actually keeps up with the latest development from Apple.
+
+Expected answer: he/she tells you what the latest version of the system is and what he/she has worked with lately. And tells you about one of the new features of the system that he/she is excited about (i.e. I love new multitasking on iPad because it’s going to make user experience way better and opens up a lot of opportunities for us developers to build new cool things, etc.).
+
+2. Have you worked with Swift? What do you like about it? What you don’t like?
+This question will give you a sense of several things:
+
+is he cautious with using something as unstable as Swift. For example 2.0/2.1 releases broke a lot of things/libraries and a senior developer would think twice about using Swift on a production application. Because a lot of libraries and frameworks necessary for production ready iOS development either do not exist yet in pure Swift or do not work anymore with newer versions of the language (as of today - 11/11/15).
+whether the developer is bold enough to play with the cutting edge stuff
+what’s his long terms plans and expectations (is he optimistic or pessimistic or somewhere in between)
+Expected answer: be cautious, use Swift along with Objective-C for now and move to pure Swift down the road in several years when it and the ecosystem of libraries around it matures enough.
+
+3. How memory management is handled on iOS?
+This question will give you an idea of how long the person was working with iOS, whether she/he’s a newcomer who’s worked only with ARC or he/she’s worked with manual retain count (MRC) and has a deeper knowledge/experience with memory management on iOS.
+
+Expected answer: it is great if interviewee knows MRC but it is not necessary. More important that he/she understands strong, weak, assign, etc. directives on properties and can confidently tell you what those directives imply and how it’s handled with blocks.
+
+4. What do you know about singletons? Where would you use one and where you wouldn't?
+This is a typical objective oriented programming question. In case of iOS you can get a feel of how the interviewee is using it in his/her apps. You’ll be able to weed out those people who came from Java/PHP and such and use it as a “global” store or something similar.
+
+Expected answer: singletons should be avoided and used only for objects that need to be shared throughout your application for same reason. It should be used carefully, instantiated lazily, if it’s possible, and passed into other objects as a dependency using Inversion of Control and Dependency Injection principles. Red flag: is when the interviewee talks about global variables and stores.
+
+5. Could you explain what is the difference between Delegate and KVO?
+With this question you are assessing their knowledge of different types of messaging patterns used in iOS. Senior developer should’ve used both of those many times in his/her applications.
+
+Expected answer: Both are ways to have relationships between objects. Delegation is a one to one relationship where one object implements a delegate protocol and another uses it and sends messages to assuming that those methods are implemented since the receiver promised to comply to the protocol. KVO is many-to-many relationship where one object could broadcast a message and one or multiple other objects can listen to it and react.
+
+6. How do you usually persist data on iOS?
+This will tell you if they just played with rudimentary ways to store data locally on iOS like NSUserDefaults, Plists, disk file storage, etc. or if they have used more advanced storages like Core Data and Realm. Ideally they should know when it is appropriate to use all of the above persistence tools.
+
+*Expected answer: *A senior developer should at least be able to tell you when it is appropriate to use NSUserDefaults, Core Data, and disk file storage. ****Core Data is what you’re expecting them to explain you the most. Other possible options are Realm and similar third party (non-Apple) solutions but make sure they know why they would want to use them instead of Core Data. With Core Data they should be able to explain how it works and how it’s different from SQLite (i.e. it’s an object graph rather than a relational database, etc.).
+
+7. How do you typically do networking?
+Networking is a vital part of almost any application these days. In fact the majority of them is useless without an internet connection. Any decent iOS developer should know how to initiate various networking requests (GET, POST, PUT, DELETE, etc.) using Apple’s frameworks or third party tools such as [AFNetworking](https://github.com/AFNetworking/AFNetworking).
+
+Expected answer: Interviewee should be able to explain how to do not just basic networking but more advanced things like HTTP headers and token handling. But in general look for developers who use either [AFNetworking](https://github.com/AFNetworking/AFNetworking) or [Alamofire](https://github.com/Alamofire/Alamofire) or similar. The reason is these libraries are used very extensively by iOS community and are utilized in many other tools. Senior developer should be able to utilize that instead of reinventing a wheel.
+
+8. How do you serialize data on iOS (JSON from the web or local app data to Core Data and other storages) ?
+Data serialization is an important task for every iOS application. JSON is defacto standard of data serialization on the web and every developer should know how to effectively work with it without spending a lot of time writing boilerplate code. Same applies to data serialization for local storage. It can be handled in multiple ways but a good developer should at least be aware of the challenges with these tasks.
+
+Expected answer: This is a tricky question. A naive developer would say that he/she parses JSON data using Apple’s [NSJSONSerialization](https://developer.apple.com/library/ios/documentation/Foundation/Reference/NSJSONSerialization_Class/) and then takes the resulting dictionary and assigns the data from each key to respective properties on his/her model object. This is not what you expect a senior developer to tell you. Senior developer should be aware of the issues that could arise with data serialization such as data validation and conversion. A good answer would be clear understanding that in general there are two types of data serialization: JSON to domain model, and domain model to persistence. Utilization of pods like Mantle or ObjectMapper or a similar library/pod is expected.
+
+9. What design patterns do you know and use on iOS?
+This could be a very simple or a very complicated answer. Every iOS developer should know about MVC but if you’re looking for a senior developer than he/she should have a lot of patterns and best practices on how to organize code under his belt.
+
+Expected answer: at least MVVM. This is the holy grail that saves iOS developers from Massive View Controllers. Senior developer should be able to explain you what MVVM is, why it’s better than MVC, and should be able to tell you what other patterns he/she uses along with MVVM (Inversion of Control, Dependency Injection, etc.). Red flags: if interviewee tells you that he uses only MVC because Apple said so and he/she never tried MVVM than that person is definitely not a senior iOS developer.
+
+10. What is Autolayout?
+Autolayout is one of the technologies on iOS that helps us build scalable UI that can be used on many devices of different shape and size. This is a must know for any iOS developer especially for a senior one.
+
+Expected answer: do not expect proficiency with this technology but the interviewee should be able to tell you when and how he/she would use it and what benefits it gives them (i.e. scalable adjustable declarative UI).
+
+11. How do you handle async tasks?
+Asynchronous programming is a vital part of any iOS application. Networking, local storage, and other heavy computation tasks should be handled in the background to avoid blocking UI and having users wait or system kill your application.
+
+Expected answer: answers to this questions may vary from NSOperations and GCD to Promises and RAC. A good developer knows multiple ways to execute async operations and knows when they are necessary (i.e. with networking, local persistence, etc. see above). From a senior developer though we expect a more higher and broader level of tools they use such as ReactiveCocoa and PromiseKit.
+
+12. How do you manage dependencies?
+Dependencies management is a vital but daunting task. It was very difficult and error prone to do before but these days we have several tools to help us out with it. Every iOS dev should know how to handle dependencies and collaborate with other teammates.
+
+Expected answer: CocoaPods and/or Carthage. Red flags: if the say that they don’t use any dependency manager and just copy files to the project folder. Also a red flag if the use git submodules (it leads to project configuration issues and inconsistencies between local setups for different developers on the team).
+
+13. How do you debug and profile things on iOS?
+No one writes perfect code and debugging and profiling is one of the tools that we use to figure out the right technical solution. On iOS we have all the typical “manual” debugging tools such as NSLog/print functions to output things in console. But Apple also provides us with more advanced variety of tools and instruments to help with identifying where problems lie.
+
+Expected answer: every iOS developer should be able to explain how he/she would use breakpoints and logs to get the runtime data but from a senior developer you should expect to hear things about Instruments and Crash Logs.
+
+14. Do you code review?
+Code reviews is one of the most effective development methodologies. It helps understand the problem better, share knowledge, share techniques, catch bugs, share ownership of the codebase, etc. This style of development is not for everyone but every development should be able to do that effectively.
+
+Expected answer: senior developer should be more or less proficient in this type of code collaboration. Again, this is not for everyone (depends on personality, compatibility and other factors), but that is a skill that should show you if the candidate is able to work with other people and communicate his thoughts and ideas clearly to another teammate.
+
+15. Do you test your code? What do you do to make your code testable?
+This is embarrassing but we admit that we don’t do testing as much as we should. We know we really really should do it more. We are talking about Unit Testing and Integration Testing specifically here.
+
+Expected answer: there is only one right answer here: either they do it or they wish they would. In general iOS community isn’t as big on testing as say Ruby community. Partially it is due to inherited lack of testing culture and partially due to lack of good tools for testing but things seems to be improving on that front.
+
+Conclusion
+This set of questions will help you identify a good senior developer. They touch upon the most of the concepts and things that a senior developer will work with on a typical iOS project. Keep the interview more or less conversational, it is easier to get answers when the other person feels relaxed. Also do not expect precise answers but they should be in close vicinity of what I’ve talked about above. Always ask for code samples, it is very helpful to look at what a person actually had done and maybe even ask them to walk you through it.
+
+/******************************** ————————————   *****************—————————  */
+
+What is iPhone?
+What is an iPhone app?
+What is iPhone OS?
+What is polymorphism?
+What is MVC ? MVC Architecture of iPhone App.
+Why iPhone apps are popular?
+What happens if IApplication object does not handle an event?
+What is Automatic Reference Counting (ARC) ?
+How many bytes we can send to apple push notification server.
+Types of parsers?
+Assume that an app is not in foreground but is still executing code. In which state will it be in?
+Assume that system is running low on memory. What can system do for suspended apps?
+Which is the super class of all view controller objects?
+What’s the difference between frame and bounds?
+Difference between COCOA, COCOA touch and objective C?
+What are the ways to store data localy on iPhone device?
+What is @interface?
+How is the app delegate is declared by Xcode project templates?
+Which object is create by UIApplicationMain function at app launch time?
+Are document objects required for an application? What does they offer?
+Explain about the applications that can be used with iPhone?
+Which framework delivers event to custom object when app is in foreground?
+Does iOS support multitasking?
+What is iPhone sdk?
+What are layer objects and what do they represent?
+What are the tools required to develop iOS applications?
+What is advantage of categories? What is difference between implementing a category and inheritance?
+How do you change the content of your app in order to change the views displayed in the corresponding window?
+What is the purpose of UIWindow object?
+Which app specific objects store the app’s content?
+Who calls the main function of you app during the app launch cycle?
+What is iPhone reference library?
+Describe the functionality of accelerometer of an iPhone ?
+What are the requirements for developing iPhone Apps?
+Multitasking support is available from which version?
+How can you respond to state transitions on your app?
+What is @dynamic and any place where it is used?
+Which API is used to write test scripts that help in exercising the application’s user interface elements?
+Which JSON framework is supported by iOS?
+What is iPhone reference library?
+Whats fast enumeration?
+What are the popular apps of iPhone?
+What are sensors in iPhone?
+How can an operating system improve battery life while running an app?
+You wish to define your custom view. Which class will be subclassed?
+Where can you test Apple iPhone apps if you don’t have the device?
+Difference between shallow copy and deep copy?
+What are the location services?
+What is the use of controller object UIApplication?
+Give example scenarios when an application goes into InActive state?
+What are KVO and KVC?
+When to use NSMutableArray and when to use NSArray?
+Why an app on iOS device behaves differently when running in foreground than in background?
+What is iPhone architecture?
+What is @synthesize?
+What are the important delegate methods of NSXML parser?
+Difference between categories and extensions?
+Garbage collector in iPhone?
+What is push notification?
+When an app is said to be in not running state?
+Name the application thread from where UIKit classes should be used?
+What is difference between NSNotification and delegate?
+Which object manage the presentation of app’s content on the screen?
+What are the features of iPhone 3gs?
+What is @implementation?
+Flow of push notification?
+Assume that your app is running in the foreground but is currently not receiving events. In which sate it would be in?
+When an app is said to be in active state?
+What is nonatomic?
+What is delegate?
+Introduction to iphone application Development?
+What are the delegate methods of MKMapView?
+
+
+
+*/ ***********   ——————  ************   ————————  *************************   */
+
+iOS concurrency : 
+
+//
+//  ViewController.swift
+//  ConcurrencyDemo
+//
+//  Created by Hossam Ghareeb on 11/15/15.
+//  Copyright © 2015 Hossam Ghareeb. All rights reserved.
+//
+
+import UIKit
+
+let imageURLs = ["http://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg", "http://adriatic-lines.com/wp-content/uploads/2015/04/canal-of-Venice.jpg", "http://algoos.com/wp-content/uploads/2015/08/ireland-02.jpg", "http://bdo.se/wp-content/uploads/2014/01/Stockholm1.jpg"]
+
+class Downloader {
+    
+    class func downloadImageWithURL(url:String) -> UIImage! {
+        
+        let data = NSData(contentsOfURL: NSURL(string: url)!)
+        return UIImage(data: data!)
+    }
+}
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var imageView1: UIImageView!
+    
+    @IBOutlet weak var imageView2: UIImageView!
+    
+    @IBOutlet weak var imageView3: UIImageView!
+    
+    @IBOutlet weak var imageView4: UIImageView!
+    
+    @IBOutlet weak var sliderValueLabel: UILabel!
+    var operationQueue = NSOperationQueue()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    @IBAction func didClickOnStart(sender: AnyObject) {
+//        self.downloadImagesUsingConcurrentQueues()
+//        self.downloadImagesUsingSerialQueues()
+//        self.downloadImagesUsingNSOperationQueues()
+//        self.downloadImagesUsingNsoperationQueuwBlockOperation()
+        self.downLoadImagesWithPriorityFirstOneAfterTwoAfterThreeUsingBlockOperations()
+    }
+    
+    @IBAction func sliderValueChanged(sender: UISlider) {
+        
+        self.sliderValueLabel.text = "\(sender.value * 100.0)"
+    }
+    
+    
+    func downloadImagesUsingSerialQueues() {
+        let serialQueue = dispatch_queue_create("serialQueueCreated", DISPATCH_QUEUE_SERIAL)
+        dispatch_async(serialQueue) {
+            let img1 = Downloader.downloadImageWithURL(imageURLs[0])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView1.image = img1
+            })
+            
+        }
+        
+        dispatch_async(serialQueue) {
+            let img2 = Downloader.downloadImageWithURL(imageURLs[1])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView2.image = img2
+            })
+            
+        }
+        
+        dispatch_async(serialQueue) {
+            let img3 = Downloader.downloadImageWithURL(imageURLs[2])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView3.image = img3
+            })
+            
+        }
+        
+        
+        dispatch_async(serialQueue) {
+            let img4 = Downloader.downloadImageWithURL(imageURLs[3])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView4.image = img4
+            })
+            
+        }
+
+    }
+    
+    func downloadImagesUsingConcurrentQueues() {
+        let concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        dispatch_async(concurrentQueue) {
+            let img1 = Downloader.downloadImageWithURL(imageURLs[0])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView1.image = img1
+            })
+            
+        }
+        
+        dispatch_async(concurrentQueue) {
+            let img2 = Downloader.downloadImageWithURL(imageURLs[1])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView2.image = img2
+            })
+            
+        }
+        
+        dispatch_async(concurrentQueue) {
+            let img3 = Downloader.downloadImageWithURL(imageURLs[2])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView3.image = img3
+            })
+            
+        }
+        
+        
+        dispatch_async(concurrentQueue) {
+            let img4 = Downloader.downloadImageWithURL(imageURLs[3])
+            dispatch_async(dispatch_get_main_queue(), {
+                self.imageView4.image = img4
+            })
+            
+        }
+        
+
+    }
+
+    func downloadImagesUsingNSOperationQueues() {
+        operationQueue = NSOperationQueue()
+        
+        operationQueue.addOperationWithBlock { 
+            let img1 = Downloader.downloadImageWithURL(imageURLs[0])
+            NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                self.imageView1.image = img1
+            })
+        }
+    operationQueue.addOperationWithBlock { 
+        let img2 = Downloader.downloadImageWithURL(imageURLs[1])
+        NSOperationQueue.mainQueue().addOperationWithBlock({ 
+            self.imageView2.image=img2
+        })
+        }
+        
+    operationQueue.addOperationWithBlock { 
+        let img3 = Downloader.downloadImageWithURL(imageURLs[2])
+        NSOperationQueue.mainQueue().addOperationWithBlock({ 
+            self.imageView3.image=img3
+        })
+        }
+    operationQueue.addOperationWithBlock { 
+        let img4 = Downloader.downloadImageWithURL(imageURLs[3])
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock({ 
+            self.imageView4.image=img4
+        })
+        }
+    }
+    
+    
+    func downloadImagesUsingNsoperationQueuwBlockOperation() {
+        operationQueue = NSOperationQueue()
+        let operation1 = NSBlockOperation { 
+            let img1 = Downloader.downloadImageWithURL(imageURLs[0])
+            NSOperationQueue.mainQueue().addOperationWithBlock({ 
+                self.imageView1.image=img1
+            })
+        }
+        operation1.completionBlock={
+            print("operation 1 is completed");
+        }
+        operationQueue.addOperation(operation1)
+        
+        let operation2 = NSBlockOperation { 
+            let img2 = Downloader.downloadImageWithURL(imageURLs[1])
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.imageView2.image=img2
+            })
+        }
+        operation2.completionBlock={
+            print("operaton 2 is completed")
+        }
+        operationQueue.addOperation(operation2)
+        
+        let operation3 = NSBlockOperation { 
+            let img3 = Downloader.downloadImageWithURL(imageURLs[2])
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.imageView3.image=img3
+            })
+        }
+        
+        operation3.completionBlock={
+        print("operation 3 is completed")
+        }
+        operationQueue.addOperation(operation3)
+        
+        let operation4 = NSBlockOperation {
+            let img4 = Downloader.downloadImageWithURL(imageURLs[3])
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.imageView4.image=img4
+            })
+        }
+        operation4.completionBlock={
+            print("operation 4 is completed")
+        }
+        
+        operationQueue.addOperation(operation4)
+        
+    }
+    
+
+    @IBAction func cancelAllOperationsOnPerticularOperationQueue(sender: AnyObject) {
+        self.operationQueue.cancelAllOperations()
+    }
+    
+    
+    func downLoadImagesWithPriorityFirstOneAfterTwoAfterThreeUsingBlockOperations(){
+        operationQueue = NSOperationQueue()
+        let operation1 = NSBlockOperation {
+            let img1 = Downloader.downloadImageWithURL(imageURLs[0])
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.imageView1.image=img1
+            })
+        }
+        operation1.completionBlock={
+            print("operation 1 is completed and is cancelled = \(operation1.cancelled)");
+        }
+        operationQueue.addOperation(operation1)
+        
+        let operation2 = NSBlockOperation {
+            let img2 = Downloader.downloadImageWithURL(imageURLs[1])
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.imageView2.image=img2
+            })
+        }
+        operation2.completionBlock={
+            print("operaton 2 is completed and is cancelled = \(operation2.cancelled)")
+        }
+        operation2.addDependency(operation1)
+        operationQueue.addOperation(operation2)
+        
+        let operation3 = NSBlockOperation {
+            let img3 = Downloader.downloadImageWithURL(imageURLs[2])
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.imageView3.image=img3
+            })
+        }
+        
+        operation3.completionBlock={
+            print("operation 3 is completed and is cancelled = \(operation3.cancelled)")
+        }
+        operation3.addDependency(operation2)
+        operationQueue.addOperation(operation3)
+        
+        let operation4 = NSBlockOperation {
+            let img4 = Downloader.downloadImageWithURL(imageURLs[3])
+            NSOperationQueue.mainQueue().addOperationWithBlock({
+                self.imageView4.image=img4
+            })
+        }
+        operation4.completionBlock={
+            print("operation 4 is completed and is cancelled = \(operation4.cancelled)")
+        }
+        
+        operationQueue.addOperation(operation4)
+        
+    }
+}
+
+
+********////////////********///////////
+
+
+
+/*
+
+As discussed, find below the details of the end points and screen shot of the results display screen with the JSON and API you need to use.  The result will be list of people and you can display then like a left to right swipe. Can you please review and finish it ASAP with using some MVC architecture and only Swift. We are not very much concerns about look and feel but make it look nice. Let me know if you have any doubts. We need the results Friday(14 October) evening 8 PM IST. 
+ 
+If you have any questions mail us.
+ 
+To obtain the OAuth2 token this is the curl:
+ 
+curl -X POST -vu clientapp:123456 http://dev-api.nauroo2.com/oauth/token -H "Accept: application/json" -d "password=hola&username=52-5541302206&grant_type=password&scope=read%20write&client_secret=123456&client_id=clientapp”
+ 
+The current token is : 7e14f71e-c04e-4ba7-a2dc-3f9305ab1d65
+ 
+To obtain the search result they should do a POST Request to: 
+ 
+http://dev-api.nauroo2.com/userClient/search with a header:
+ 
+ Authorization: Bearer *OAuth2 token* example: Authorization: Bearer 7e14f71e-c04e-4ba7-a2dc-3f9305ab1d65
+ 
+With the following Json Body:
+ 
+{ "page" : 1, "startDate" : "2016-07-01 19:00", "endDate" : "2016-07-01 23:00", "address" : { "street" : "Calle San Pedro 91312", "number" : 0, "city" : "Mexico City", "country" : "Mexico", "zipcode" : "04600", "longitude" : -99.157178, "addresTypeIdAddressType" : 1, "latitude" : 19.314252, "state" : "DF" } }
+ 
+
+*/
+
+
+
+In Swift structs and classes give you both value and reference-based constructs for your objects. Structs are preferred for objects designed for data storage like Array. Structs also help remove memory issues when passing objects in a multithreaded environment. Classes, unlike structs, support inheritance and are used more for containing logic like UIViewController. Most standard library data objects in Swift, like String, Array, Dictionary, Int, Float, Boolean, are all structs, therefore value objects. The mutability of var versus let is why in Swift there are no mutable and non-mutable versions of collections like Objective C’s NSArray and NSMutableArray.
+
+
+Model-View-Controller (MVC) is one of the building blocks of Cocoa and is undoubtedly the most-used design pattern of all. It classifies objects according to their general role in your application and encourages clean separation of code based on role.
+The three roles are:
+Model: The object that holds your application data and defines how to manipulate it. For example, in your application the Model is your Album class.
+View: The objects that are in charge of the visual representation of the Model and the controls the user can interact with; basically, all the UIView-derived objects. In your application the View is represented by your AlbumView class.
+Controller: The controller is the mediator that coordinates all the work. It accesses the data from the model and displays it with the views, listens to events and manipulates the data as necessary. Can you guess which class is your controller? That’s right: ViewController.
+A good implementation of this design pattern in your application means that each object falls into one of these groups.
+The communication between View to Model through Controller can be best described with the following diagram:
+mvc0
+The Model notifies the Controller of any data changes, and in turn, the Controller updates the data in the Views. The View can then notify the Controller of actions the user performed and the Controller will either update the Model if necessary or retrieve any requested data.
+You might be wondering why you can’t just ditch the Controller, and implement the View and Model in the same class, as that seems a lot easier.
+It all comes down to code separation and reusability. Ideally, the View should be completely separated from the Model. If the View doesn’t rely on a specific implementation of the Model, then it can be reused with a different model to present some other data.
+For example, if in the future you’d also like to add movies or books to your library, you could still use the same AlbumView to display your movie and book objects. Furthermore, if you want to create a new project that has something to do with albums, you could simply reuse your Album class, because it’s not dependent on any view. That’s the strength of MVC!
+
+
+
+
+
+GMS MApview   ——********  ————
+
+
+1.Google developer console and create project to get api key and enable the geocode, directions api, iOS sdks, google places api……..
+2.Download the google maps idk for iOS and copy it to the project.
+3.Initialize the map view with gmscameraposition.
+4.Use CLLocationmanager to get the user current location implement CLLocationmanagerdelegate functions locationmanagerDidUpdateLocations, locationManagerDidChangeAuthorizatinStatus and show the alert [request when in use authorisation ]
+To get authorised and show some custom alert message add a key in info.plist [KEY : NSLocationWhenInUseUsageDescription, Value is String type : “By accessing your location, this app can find you a good place to eat.”

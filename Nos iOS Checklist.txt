@@ -1,0 +1,7 @@
+***************************    iOS Nos Checklist  ******************************
+
+1. Change api from test url to live url.
+2. Make Payment Environment as Live Mode.
+3. Version please make sure it is Changed to New version.
+4.Make sure the Pushnotification is changed to APNS.
+5. Do all necessary Certificate changes.

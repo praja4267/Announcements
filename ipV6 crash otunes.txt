@@ -1,0 +1,30 @@
+Oct 10, 2016 at 8:31 AM
+From Apple
+2. 1 PERFORMANCE: APP COMPLETENESS
+Performance - 2.1
+
+
+We were unable to review your app as it crashed on launch. We have attached detailed crash logs to help troubleshoot this issue.
+
+Next Steps
+
+Please revise your app and test it on a device while connected to an IPv6 network (all apps must support IPv6) to ensure it will launch without crashing.
+
+Resources
+
+For additional information about supporting IPv6 Networks, please refer to Supporting IPv6 DNS64/NAT64 Networks and Supporting IPv6-only Networks.
+
+For a networking overview, please see About Networking.
+
+For information on how to symbolicate and read a crash log, please see Tech Note TN2151 Understanding and Analyzing Application Crash Reports.
+
+If you have difficulty reproducing this issue, please try testing the workflow described in Testing Workflow with Xcode's Archive feature.
+
+If you have code-level questions after utilizing the above resources, you may wish to consult with Apple Developer Technical Support. When the DTS engineer follows up with you, please be ready to provide:
+- complete details of your rejection issue(s)
+- screenshots
+- steps to reproduce the issue(s)
+- symbolicated crash logs - if your issue results in a crash log
+
+crashlog-74712BE1-E4D8-4578-9325-08F0085C797D.txt
+Reply Use the field below to ask questions or provide additional information to the App Review team. Learn More Submit an appeal to the App Review Board

@@ -1,0 +1,10 @@
+Google API key : AIzaSyBy22cjGz9ZId4qfBlz_ZlsyN0GS0HOBTg
+Address Search Autocomplete
+Geo Code
+Address Search Autocomplete
+Geo Code
+
+kClientId :  803945882062-6fiuuavhl1dfudi5q4mncu2vd8aa3lff.apps.googleusercontent.com
+API_URL : http://orbit.cab/user 
+SERVICE_URL : http://orbit.cab
+CRITTERCISM_APP_ID : 568267616c33dc0f00f11508  
